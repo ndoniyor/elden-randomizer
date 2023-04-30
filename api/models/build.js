@@ -11,7 +11,26 @@ const pool = new Pool({
     "connectionTimeoutMillis": 0,
 })
 
+exports.getDiffArmors = async () => {
+    try{
+        const data = await pool.query(`
+        (SELECT * FROM armors WHERE category='Helm' ORDER BY RANDOM() LIMIT 1)
+        UNION ALL
+        (SELECT * FROM armors WHERE category='Chest Armor' ORDER BY RANDOM() LIMIT 1)
+        UNION ALL
+        (SELECT * FROM armors WHERE category='Gauntlets' ORDER BY RANDOM() LIMIT 1)
+        UNION ALL
+        (SELECT * FROM armors WHERE category='Leg Armor' ORDER BY RANDOM() LIMIT 1)
+        `)
+        console.log(data.rows);
+        return data.rows;
+    }
+    catch (err) {
+        throw err;
+    }
+}
 
+//TODO: make sure powerstance cant return ranged weapons
 exports.getWepsSameTyped = async (query) => {
     try {
         const data = await pool.query(`
@@ -26,8 +45,23 @@ exports.getWepsSameTyped = async (query) => {
         ORDER BY RANDOM()
         LIMIT 2;
         `)
-        console.log(data.rows)
-        return data
+        //console.log(data.rows)
+        return data.rows;
+    }
+    catch (err) {
+        throw err;
+    }
+}
+
+exports.getItemsDiffTable = async (table1, table2) => {
+    try {
+        const data = await pool.query(`
+        (SELECT * FROM ${table1} ORDER BY RANDOM() LIMIT 1)
+        UNION ALL
+        (SELECT * FROM ${table2} ORDER BY RANDOM() LIMIT 1)
+        `)
+        //console.log(data.rows)
+        return data.rows;
     }
     catch (err) {
         throw err;
@@ -39,7 +73,7 @@ exports.getItem = async (table, limit = 1) => {
     try {
         const data = await pool.query(`SELECT * FROM ${table} ORDER BY RANDOM() LIMIT ${limit}`)
         console.log(data.rows)
-        return data.rows
+        return data.rows;
     }
     catch (err) {
         throw err;
@@ -50,8 +84,8 @@ exports.getItem = async (table, limit = 1) => {
 exports.getWhere = async (table, query, limit = 1) => {
     try {
         const data = await pool.query(`SELECT * FROM ${table} WHERE ${query} ORDER BY RANDOM() LIMIT ${limit}`)
-        console.log(data.rows)
-        return data.rows
+        //console.log(data.rows)
+        return data.rows;
     }
     catch (err) {
         throw err;
