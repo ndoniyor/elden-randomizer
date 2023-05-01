@@ -1,5 +1,9 @@
 const build = require('../models/build');
 
+const getRandomBuildType = () => {
+    const buildTypes = ["melee", "magic"];
+    return buildTypes[Math.floor(Math.random() * buildTypes.length)]
+}
 
 const getRandomMeleeType = () => {
     const meleeTypes = ["powerstance", "dualwield", "singlewield", "shield"];
@@ -39,12 +43,28 @@ const generateBuild = async (req, res) => {
     let completedBuild = {};
     const params = req.body;
 
-    //weapon generation
-    const weapons = await getMeleeWeapons(params.meleeType);
-    const armor = (params.armorSets) ? (await build.getItem("armor_sets")) : (await build.getDiffArmors());
-    //console.log(weapons)
-    res.send(weapons)
-}
+    const startingClass = await build.getItem("classes")
+    completedBuild["class"] = startingClass;
 
+    const buildType = (params.buildType==="rand") ?  
+        getRandomBuildType() : params.buildType;
+
+    const weapons = (buildType === "melee" ) ?
+        (params.meleeType === "rand") ? 
+            (await getMeleeWeapons(getRandomMeleeType())) : (await getMeleeWeapons(params.meleeType)) :
+        (await getMeleeWeapons("singlewield"))
+    completedBuild["weapons"] = weapons[0];
+
+    const armor = (params.armorSets) ? 
+        (await build.getItem("armor_sets")) : (await build.getDiffArmors());
+    completedBuild["armor"] = armor;
+
+    if(buildType === "magic") {
+        var magic = (params.magicType=== "rand") ?
+            (await build.getWhere("spells",`"type"='${getRandomMagicType()}'`,"5")) : (await build.getWhere("spells",`"type"='${params.magicType}'`,"5")); 
+        completedBuild["magic"] = magic;
+        }
+    res.send(completedBuild)
+}
 
 module.exports = {generateBuild}
