@@ -1,0 +1,26 @@
+
+.FormCard{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.outerForm{
+    color: var(--off-white);
+    width: 100%;
+    border: 1px solid var(--gold);
+    padding: 20px;
+    border-radius: 20px;
+    background-color: var(--black);
+}
+.randomize-btn{
+    color: var(--off-white) !important;
+    border-color: var(--gold) !important;
+    background-color: var(--black) !important;
+}
+
+.randomize-btn:hover{
+    color: var(--black) !important;
+    border-color: var(--gold) !important;
+    background-color: var(--gold) !important;
+}
