@@ -11,6 +11,7 @@ const pool = new Pool({
     "connectionTimeoutMillis": 0,
 })
 
+
 exports.getDiffArmors = async () => {
     try{
         const data = await pool.query(`
@@ -22,7 +23,7 @@ exports.getDiffArmors = async () => {
         UNION ALL
         (SELECT * FROM armors WHERE category='Leg Armor' ORDER BY RANDOM() LIMIT 1)
         `)
-        console.log(data.rows);
+        //console.log(data.rows);
         return data.rows;
     }
     catch (err) {
@@ -72,8 +73,8 @@ exports.getItemsDiffTable = async (table1, table2) => {
 exports.getItem = async (table, limit = 1) => {
     try {
         const data = await pool.query(`SELECT * FROM ${table} ORDER BY RANDOM() LIMIT ${limit}`)
-        console.log(data.rows)
-        return data.rows;
+        //console.log(data.rows)
+        return (data.rows.length === 1) ? data.rows[0] : data.rows
     }
     catch (err) {
         throw err;
