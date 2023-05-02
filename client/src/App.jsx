@@ -6,7 +6,6 @@ import ArmorCard from './components/ArmorCard';
 import SpellCard from './components/SpellCard';
 import MainCard from './components/MainCard';
 
-
 function App() {
     const [flags, setFlags] = useState([]);
     const [build, setBuild] = useState({});
@@ -28,17 +27,29 @@ function App() {
                 setBuild(data)
             })
     }
-    useEffect(()=>{
+
+    useEffect(() => {
         getBuild();
-    },[flags])
+    }, [flags])
 
     return (
         <div className='App'>
-            <h1 className="title">Elden Ring Build Randomizer</h1>
+            {/*<h1 className="title">Elden Ring Build Randomizer</h1>*/}
             <FormCard biasFlags={setFlags} />
-            {/* <MainCard />
-            <ArmorCard />
-            <SpellCard /> */}
+            {Object.keys(build).length > 0 &&
+                <div>
+                    <MainCard
+                        startingClass={build.class}
+                        weapons={build.weapons}
+                    />
+                    <ArmorCard armor={build.armor} />
+
+                    {build.magic &&
+                        <SpellCard spells={build.magic} />
+                    }
+
+                </div>
+            }
         </div>
     )
 }
