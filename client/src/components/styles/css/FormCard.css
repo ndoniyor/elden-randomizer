@@ -7,12 +7,14 @@
 
 .outerForm{
     color: var(--off-white);
+    max-width: 600px;
     width: 100%;
     border: 1px solid var(--gold);
     padding: 20px;
     border-radius: 20px;
     background-color: var(--black);
 }
+
 .randomize-btn{
     color: var(--off-white) !important;
     border-color: var(--gold) !important;
