@@ -21,12 +21,13 @@
   padding-top: 10px;
   padding-bottom: 10px;
   margin-top: 10px;
-  display: flex;
   color: var(--off-white);
-  width: 100%;
   border: 1px solid var(--gold);
-  flex-wrap: scroll;
   border-radius: 20px;
   background-color: var(--black);
 }
 
+
+.GridItem img{
+  max-height: 200px;
+}

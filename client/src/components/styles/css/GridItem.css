@@ -1,4 +1,20 @@
 .card-img{
     max-width: 200px;
-    max-height: 300px;
+    max-height: 100%;
+}
+
+.card{
+    background: transparent;
+    height: 100%;
+    border-radius: 20px;
+}
+
+.card:hover{
+    color: var(--black);
+    background-color: var(--gold);
+}
+
+.card-body{
+    display: flex;
+    align-items: center;
 }

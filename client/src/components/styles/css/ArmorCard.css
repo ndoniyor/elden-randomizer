@@ -1,1 +1,15 @@
-
+.container-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .container-wrapper .container {
+    width: auto;
+    max-width: none;
+  }
+  
+  .container-wrapper .container.with-one-item {
+    width: fit-content;
+    max-width: none;
+  }
+  
