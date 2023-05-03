@@ -45,21 +45,25 @@ const generateBuild = async (req, res) => {
     let buildType, meleeType, magicType, weapons, armor, magic;
     const params = req.body;
 
-    const startingClass = await build.getItem("classes")
-    completedBuild["class"] = startingClass;
+    //const startingClass = await build.getItem("classes")
+    //completedBuild["class"] = startingClass;
 
     const spiritAsh = (await build.getItem("spirits"))
     completedBuild["spiritAsh"] = spiritAsh;
 
     buildType = (params.buildType === "rand") ? getRandomBuildType() : params.buildType;
-    meleeType = (params.meleeType)
+    meleeType = (params.meleeType === "rand") ? getRandomMeleeType : params.meleeType;
+
     if (buildType === "magic" && params.buildType === "rand")
         params["magicType"] = "rand";
+    if(buildType === "melee" && params.buildType === "rand")
+        params["meleeType"] = "rand";
 
     if (buildType === "melee")
         meleeType = (params.meleeType === "rand") ? getRandomMeleeType() : params.meleeType;
     else
         meleeType = "singlewield";
+    console.log("meleeType: ",meleeType);
     weapons = await getMeleeWeapons(meleeType);
     console.log(weapons);
     completedBuild["weapons"] = weapons;
