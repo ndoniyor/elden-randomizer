@@ -1,15 +1,23 @@
 const { error } = require('console');
+require('dotenv').config();
 
 const { Pool } = require('pg');
 const options = require('../queries')
+// const pool = new Pool({
+//     "user": options.user,
+//     "host": options.host,
+//     "database": options.database,
+//     "password": options.password,
+//     "port": options.port,
+//     "connectionTimeoutMillis": 0,
+// })
+
 const pool = new Pool({
-    "user": options.user,
-    "host": options.host,
-    "database": options.database,
-    "password": options.password,
-    "port": options.port,
-    "connectionTimeoutMillis": 0,
-})
+    connectionString: process.env.DB_URL + '?ssl=true'
+});
+
+console.log(process.env.DB_URL+ '?ssl=true');
+pool.query(`SELECT 1`);
 
 exports.getDiffArmors = async () => {
     try{
