@@ -16,7 +16,10 @@ app.use(
         extended: false,
     })
 )
-
+app.use('/api', (req,res, next)=>{
+    console.log(req.body);
+    next();
+})
 app.get('/', (req,res)=>{
     res.send('get?')
 })
