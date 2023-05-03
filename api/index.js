@@ -26,6 +26,9 @@ app.get('/', (req,res)=>{
 
 app.post('/api', BuildController.generateBuild);
 
+app.get('/health', (req,res)=>{
+    res.status(200).send('good');
+})
 
 app.listen(port, ()=>{
     console.log("Listening...");
