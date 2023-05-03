@@ -4,7 +4,7 @@ import './styles/css/GridItem.css'
 
 export default function GridItem({ name, image }) {
   return (
-    <Card style={{backgroundColor: 'transparent' }}>
+    <Card className="GridItem">
       <Card.Title>{name}</Card.Title>
       <Card.Body>
         <Card.Img
