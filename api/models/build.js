@@ -2,7 +2,7 @@ const { error } = require('console');
 require('dotenv').config();
 
 const { Pool } = require('pg');
-const options = require('../queries')
+//const options = require('../queries')
 // const pool = new Pool({
 //     "user": options.user,
 //     "host": options.host,
