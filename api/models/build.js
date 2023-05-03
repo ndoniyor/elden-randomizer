@@ -11,7 +11,6 @@ const pool = new Pool({
     "connectionTimeoutMillis": 0,
 })
 
-
 exports.getDiffArmors = async () => {
     try{
         const data = await pool.query(`
@@ -33,6 +32,18 @@ exports.getDiffArmors = async () => {
 
 //TODO: make sure powerstance cant return ranged weapons
 exports.getWepsSameTyped = async (query) => {
+    console.log(`
+    SELECT weapon1."name", weapon1.image, weapon1.aow, weapon1."type"
+    FROM weapons weapon1
+    JOIN (
+        SELECT "type"
+        FROM weapons
+        ORDER BY RANDOM()
+        LIMIT 1
+    ) weapon2 ON ${query}
+    ORDER BY RANDOM()
+    LIMIT 2;
+    `);
     try {
         const data = await pool.query(`
         SELECT weapon1."name", weapon1.image, weapon1.aow, weapon1."type"
@@ -55,11 +66,16 @@ exports.getWepsSameTyped = async (query) => {
 }
 
 exports.getItemsDiffTable = async (table1, table2) => {
+    console.log(`
+    (SELECT * FROM "${table1}" ORDER BY RANDOM() LIMIT 1)
+    UNION ALL
+    (SELECT * FROM "${table2}" ORDER BY RANDOM() LIMIT 1)
+    `);
     try {
         const data = await pool.query(`
-        (SELECT * FROM ${table1} ORDER BY RANDOM() LIMIT 1)
+        (SELECT * FROM "${table1}" ORDER BY RANDOM() LIMIT 1)
         UNION ALL
-        (SELECT * FROM ${table2} ORDER BY RANDOM() LIMIT 1)
+        (SELECT * FROM "${table2}" ORDER BY RANDOM() LIMIT 1)
         `)
         //console.log(data.rows)
         return data.rows;
@@ -71,8 +87,9 @@ exports.getItemsDiffTable = async (table1, table2) => {
 
 //Get x of random item
 exports.getItem = async (table, limit = 1) => {
+    console.log(`SELECT * FROM "${table}" ORDER BY RANDOM() LIMIT ${limit}`)
     try {
-        const data = await pool.query(`SELECT * FROM ${table} ORDER BY RANDOM() LIMIT ${limit}`)
+        const data = await pool.query(`SELECT * FROM "${table}" ORDER BY RANDOM() LIMIT ${limit}`)
         //console.log(data.rows)
         return (data.rows.length === 1) ? data.rows[0] : data.rows
     }
@@ -83,8 +100,9 @@ exports.getItem = async (table, limit = 1) => {
 
 //Get item conditionally based on type
 exports.getWhere = async (table, query, limit = 1) => {
+    console.log(`SELECT * FROM "${table}" WHERE ${query} ORDER BY RANDOM() LIMIT ${limit}`);
     try {
-        const data = await pool.query(`SELECT * FROM ${table} WHERE ${query} ORDER BY RANDOM() LIMIT ${limit}`)
+        const data = await pool.query(`SELECT * FROM "${table}" WHERE ${query} ORDER BY RANDOM() LIMIT ${limit}`)
         //console.log(data.rows)
         return data.rows;
     }
