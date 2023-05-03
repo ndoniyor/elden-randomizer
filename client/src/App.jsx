@@ -41,9 +41,11 @@ function App() {
                     <MainCard
                         startingClass={build.class}
                         weapons={build.weapons}
+                        ashesOfWar={build.ashesOfWar}
                     />
-                    <ArmorCard armor={build.armor} />
-
+                    <ArmorCard
+                    armor={build.armor} 
+                    />
                     {build.magic &&
                         <SpellCard spells={build.magic} />
                     }
