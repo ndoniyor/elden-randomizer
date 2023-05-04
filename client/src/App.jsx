@@ -15,7 +15,7 @@ function App() {
     }, [build])
 
     const getBuild = async () => {
-        fetch("http://localhost:3000/api", {
+        fetch("https://elden-randomizer-api.onrender.com/api", {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
