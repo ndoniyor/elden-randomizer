@@ -9,7 +9,7 @@ const port = 3000;
 app.use(bodyParser.json())
 
 app.use(cors({
-    origin: 'https://elden-randomizer.netlify.app'
+    origin: ['https://elden-randomizer.com', 'http://elden-randomizer.com', 'https://www.elden-randomizer.com', 'http://www.elden-randomizer.com']
 }))
 
 app.use(
