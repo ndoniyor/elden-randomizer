@@ -16,3 +16,8 @@ There are multiple flags that can be used to bias the generation. Here is a rund
   - Choose for me: randomly selects magic type
   - Sorcery: random spells are all sorceries
   - Incantations: random spells are all incantations
+In addition, there is an automatic generation of ashes-of-war if the weapon is compatible with them. For example, if one of your weapons is `Caestus` a possible ash-of-war is `Lifesteal Fist` as that is only for fist/claw weapons.
+
+## Contributing
+
+Contributions are welcome! If you find any bugs or have suggestions for improvements, please open an issue on the GitHub repository or submit a pull request.
